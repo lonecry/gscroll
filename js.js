@@ -84,7 +84,7 @@ $(function (){
 					clearInterval(movefuc)
 				}
 				t = t + 0.01;
-				g = g - 0.01
+				// g = g - 0.01
 				s += 50
 			}, 10)
 		}
