@@ -3,10 +3,67 @@
 <head>
 	<meta charset = "UTF-8">
 	<meta name = "viewport" content = "width=device-width, initial-scale=1.0"/>
-	<link href = "css/bootstrap.css" rel = "stylesheet">
-	<script src = "js/jquery.min.js"></script>
+	<script src = "jquery.min.js"></script>
+	<script src = "js.js"></script>
+	<link rel = "stylesheet" href = "style.css">
 	<title></title>
 </head>
 <body>
+<div class = "container">
+	<div class = "scroller">
+		使用git可以把我们的项目代码上传到github上面去，方便自己管理，如何使用git？觉得是每位程序猿所必需要有的谋生技能，所以在此记录一下自己学会使用的这个过程：
+		<br>一、需要注册github账号，这样就可以在自己的github上面创建仓库（Create a New Repository）了，填好一些配置信息，然后便可以点击"Create Repository"按钮了！http://t.cn/RUbL4rP如图：
+		<br>二、安装客户端tortoiseGit(小乌龟)，于是我们便可以右键Git Init Here(初始化本地仓库)，然后会出现.git文件，同时也可以Git Bash进入git命令行，将项目代码上传至github上面创建的对应的仓库。
+		<br>三、配置Git
+			<br>1、首先需要在本地创建ssh key（可以理解创建密钥文件）
+			<br> $ ssh-keygen -t rsa -C "your_email@youremail.com" //双引号里面是自己的邮箱，需要是自己在github上面注册的邮箱，这一操作后要求确认路径和输入密码，密码建议与github密码一致，这样比较好记！一路回车键，成功的话，根据命令显示的地址找出.ssh文件夹，进去，找到id_rsa.pub，复制里面的key，登录github，进入Setting -> SSH keys，点击Add SSH Key，将复制的key粘贴进去，title随便填！
+			<br>2、为了验证是否成功，在git bash输入 $ ssh -T git@github.com ，如果是第一次的话，会提示是否continue，输入yes，会看到You’ve successfully authenticated, but GitHub does not provide shell access，那么证明成功连接github！
+			<br>3、接下来还需要配置一下username和email，之后每次commit都会使用到的：　
+			<br> $ git config --global user.name "your name" //需要和github上名称一致
+			<br> $ git config --global user.email "your_email@youremail.com" //需要和github上注册邮箱一致
+		<br>四、Git常用命令行　
+		　<br>　git clone ... //克隆别人的项目
+		<br>创建一个项目名为angular文件夹
+		<br>进入这个angular项目
+		<br>$ git init //初始化
+		<br>$ git add README.md //更新README文件
+		<br>　 $ git add * //更新所有文件
+		<br>$ git commit -m 'first commit' //提交更新，并注释信息“one commit”，第一次提交
+		<br>$ git remote add origin git@github.com:xiaobin5201314/angular.git //第一次需要连接远程github项目
+		<br>$ git push -u origin master //将本地项目更新到github项目上去，或是（git push origin master）
+		<br>　 $ git pull -u origin master //将github项目更新到本地，或是（git pull origin master）
+		<br>　 $ git checkout -b feature_x //创建一个叫做“feature_x”的分支，并切换过去
+		<br>　 $ git checkout master //切换回主分支
+		<br>　 $ git branch -d feature_x //把新建的分支删掉
+		<br>　 $ git push origin
+		<br>//将分支推送到远端仓库
+		<br>　 $ git merge
+		<br>//将某个分支合并到master
+		<br>五、常见错误：
+		<br>如果输入$ git remote add origin git@github.com:xiaobin5201314（github帐号名）/gitdemo（项目名）.git
+		<br>提示出错信息：fatal: remote origin already exists.
+		<br>解决办法如下：
+		<br>1、先输入$ git remote rm origin
+		<br>2、再输入$ git remote add origin git@github.com:xiaobin5201314/gitdemo.git 就不会报错了！
+		<br>3、如果输入$ git remote rm origin 还是报错的话，error: Could not remove config section 'remote.origin'. 我们需要修改gitconfig文件的内容
+		<br>4、找到你的github的安装路径，我的是C:\Users\ASUS\AppData\Local\GitHub\angular_d14f7551eeb4aea0e4ae9fcd3358bd96420bb5c8\etc
+		<br>5、找到一个名为gitconfig的文件，打开它把里面的[remote "origin"]那一行删掉就好了！
+		<br>如果输入$ ssh -T git@github.com
+		<br>出现错误提示：Permission denied (publickey).因为新生成的key不能加入ssh就会导致连接不上github，可以重新生成一个。
+		<br>解决办法如下：
+		<br>1、先输入$ ssh-agent，再输入$ ssh-add ~/.ssh/id_key，这样就可以了。
+		<br>2、如果还是不行的话，输入ssh-add ~/.ssh/id_key 命令后出现报错Could not open a connection to your authentication agent.解决方法是key用Git Gui的ssh工具生成，这样生成的时候key就直接保存在ssh中了，不需要再ssh-add命令加入了，其它的user，token等配置都用命令行来做。
+		<br>3、最好检查一下在你复制id_rsa.pub文件的内容时有没有产生多余的空格或空行，有些编辑器会帮你添加这些的。
+		<br>如果输入$ git push origin master
+		<br>提示出错信息：error:failed to push som refs to .......
+		<br>解决办法如下：
+		<br>1、先输入$ git pull origin master //先把远程服务器github上面的文件拉下来
+		<br>2、再输入$ git push origin master
+		<br>3、如果出现报错 fatal: Couldn't find remote ref master或者fatal: 'origin' does not appear to be a git repository以及fatal: Could not read from remote repository.
+		<br>4、则需要重新输入$ git remote add origingit@github.com:xiaobin5201314/gitdemo.git
+		<br>六、README.md也可以怎么编写
+		<br>　 README.md不单单可以写文字说明，还可以控制样式，显示图片，列表等有趣的操作，使用的是一种MarkDown的标签语言，十分简单，感兴趣可以到原来Github上的README.md文件这么有意思——Markdown语言详解去阅读，这篇文章有着很详细的介绍，里面也介绍了两个比较实用的在线编写README.md的工具！
+	</div>
+</div>
 </body>
 </html>
