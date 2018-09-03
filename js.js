@@ -35,6 +35,7 @@ $(function (){
 		$('.scroller').css('top', y)
 	}
 	function touchend(e){
+
 		if (movey <= 0) {
 			// console.log("往上滑动 :" + movey + " px");
 		} else {
@@ -64,10 +65,10 @@ $(function (){
 			}
 			var t = 1, s = 0
 			movefuc = setInterval(function (){
-				if (s < 2000) {
+				if (s < 400 * Math.abs(g)) {
 					// console.log('当前位置 :' + totaly);
-					totaly = totaly + g * t ^ 2;
-					console.log(g, t)
+					totaly = totaly + g * t;
+					// console.log(g, t)
 					if ((totaly < 0)) {//边界的控制
 						if (totaly > maxY) {
 							$('.scroller').css('top', totaly)
@@ -83,6 +84,7 @@ $(function (){
 					clearInterval(movefuc)
 				}
 				t = t + 0.01;
+				g = g - 0.01
 				s += 50
 			}, 10)
 		}
