@@ -18,7 +18,7 @@ $(function (){
 	scroller.bind('touchmove', window, touchmove)
 	scroller.bind('touchend', window, touchend)
 	function touchstart(e){
-		console.log(e.originalEvent);
+		// console.log(e.originalEvent);
 		let touch = e.originalEvent.targetTouches[0];
 		starty = touch.clientY;
 		time1 = new Date().getTime()
