@@ -63,8 +63,7 @@ $(function (){
 		time = time2 - time1
 		if ((Math.abs(movey) > 200) && (time < 200)) {
 			g = (movey / time).toFixed(1)	//加速度计算
-			if (Math.abs(g)) {
-				totaly = totaly * (1 - g / 5);
+			totaly = totaly * (1 - g * 0.3);
 				if ((totaly < 0)) {//边界的控制
 					if (totaly > maxY) {
 						scroller.animate({'top': totaly}, 1000, 'easeOutSine', animationEnd)
@@ -74,7 +73,6 @@ $(function (){
 				} else {
 					scroller.animate({'top': 0}, 1000, 'easeOutSine', animationEnd)
 				}
-			}
 		}
 	}
 	function animationEnd(){
