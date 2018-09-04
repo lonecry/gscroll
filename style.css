@@ -6,7 +6,7 @@
 	overflow : hidden;
 }
 .scroller {
-	width       : 414px;
+	width       : 100%;;
 	height      : auto;
 	background  : #f4f7f7;
 	font-size   : 15px;
